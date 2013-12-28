@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}Greekey CRM{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="{% static "css/sb-admin.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "font-awesome/css/font-awesome.min.css" %}">
+  </head>
+
+  <body>
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">Taskeitor</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            <li class="dropdown user-dropdown">
+              <a href="{% url 'add_project' %}" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Projects <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'add_project' %}"><i class="fa fa-file"></i> Add Project</a>
+                <li><a href="{% url 'add_project' %}"><i class="fa fa-file"></i> View Projects</a>
+              </ul>
+            </li>
+            <li class="dropdown user-dropdown">
+              <a href="{% url 'add_project' %}" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Companies <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'add_project' %}"><i class="fa fa-file"></i> Add Company</a>
+                <li><a href="{% url 'add_project' %}"><i class="fa fa-file"></i> View Companies</a>
+              </ul>
+            </li>
+            <li class="dropdown user-dropdown">
+              <a href="{% url 'add_project' %}" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Contacts <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'add_project' %}"><i class="fa fa-file"></i> Add Contact</a>
+                <li><a href="{% url 'add_project' %}"><i class="fa fa-file"></i> View Contacts</a>
+              </ul>
+            </li>
+            <li class="dropdown user-dropdown">
+              <a href="{% url 'add_project' %}" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Tasks <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'add_project' %}"><i class="fa fa-file"></i> Add Task</a>
+                <li><a href="{% url 'add_project' %}"><i class="fa fa-file"></i> View Your Tasks</a>
+                <li><a href="{% url 'add_project' %}"><i class="fa fa-file"></i> View All Tasks</a>
+                <li><a href="{% url 'add_project' %}"><i class="fa fa-file"></i> Pending Tasks</a>
+                <li><a href="{% url 'add_project' %}"><i class="fa fa-file"></i> View Project Tasks</a>
+              </ul>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right navbar-user">
+            <li class="dropdown user-dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                <li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>
+                <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                <li class="divider"></li>
+                <li><a href="{% url 'auth_logout' %}"><i class="fa fa-power-off"></i> Log Out</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div id="page-wrapper">
+      {% block content %}
+        <div class="row">
+
+        </div><!-- /.row -->
+      {% endblock %}
+      </div><!-- /#page-wrapper -->
+
+    </div><!-- /#wrapper -->
+
+    <!-- JavaScript -->
+    <script src="{% static "js/jquery-1.10.2.js" %}"></script>
+    <script src="{% static "js/bootstrap.js" %}"></script>
+
+  </body>
+</html>
