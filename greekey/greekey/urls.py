@@ -7,8 +7,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'projects.views.index', name='index'),
-    url(r'^projects/', include('projects.urls')),
+    url(r'^$', 'jobcontrol.views.index', name='index'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -21,6 +20,8 @@ urlpatterns = patterns('',
 urlpatterns += patterns('',
     #url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^projects/', include('projects.urls')),
+    url(r'^jobcontrol/', include('jobcontrol.urls')),
 )
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT,show_indexes=False)

@@ -2,5 +2,11 @@
 {% load i18n %}
 {% block title %}{% trans "Logged out" %}{% endblock %}
 {% block content %}
-{% trans "Successfully logged out!" %}
+<div class="alert alert-success alert-dismissable" >
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          {% trans "Successfully logged out!" %}
+</div>
+<div class="col-md-12">
+	<p class="text-center"><a href="{% url 'auth_login' %}?next=/" class="btn btn-success btn-large">Sign In</a></p>
+</div>
 {% endblock %}

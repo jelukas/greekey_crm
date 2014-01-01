@@ -1,12 +1,26 @@
 from django.db import models
 
 
+MOREINFO_CHOICES = (
+	('twitter', 'Twitter URL'),
+	('facebook', 'Facebook URL'),
+	('phone', 'Phone Number'),
+	('website', 'Website'),
+	('googleplus', 'Google Plus URL'),
+	('email', 'Email Address'),
+)
+
+CONTACT_TYPE_CHOICES = (
+	('company', 'Company'),
+	('person', 'Individual Person'),
+)
+
+
 class Contact(models.Model):
 	firstname = models.CharField(max_length=250)
 	lastname = models.CharField(max_length=250, blank=True)
-	primary_email = models.CharField(max_length=250,blank=True)
-	primary_address = models.CharField(max_length=250,blank=True)
-	primary_phone = models.CharField(max_length=250, blank=True)
+	type_contact = models.CharField(max_length=250, blank=True, choices=CONTACT_TYPE_CHOICES)
+	contacts = models.ManyToManyField('self', through='ContactRelationship', symmetrical=False, related_name='related_contacts+')
 
 	def __unicode__(self):
 		return self.firstname + ' ' + self.lastname
@@ -15,37 +29,22 @@ class Contact(models.Model):
 		return self.firstname + ' ' + self.lastname
 
 
-#TODO Contact has Many EmailAddresses.
-class EmailAddresses(models.Model):
-	email_address = models.CharField(max_length=230)
-
-
-#TODO Contact has Many PhoneNumbers.
-class PhoneNumbers(models.Model):
-	phone_number = models.CharField(max_length=230)
-
-
-class Company(models.Model):
-	name = models.CharField(max_length=250)
-	country = models.CharField(max_length=200)
-	primary_address = models.CharField(max_length=250, blank=True)
-	primary_phone = models.CharField(max_length=250, blank=True)
-	contacts = models.ManyToManyField(Contact, through='CompanyContacts')
+class ContactMoreInfo(models.Model):
+	contact = models.ForeignKey(Contact, related_name='contact_moreinfo')
+	info = models.CharField(max_length=240)
+	type_info = models.CharField(max_length=240, choices=MOREINFO_CHOICES)
 
 	def __unicode__(self):
-		return self.name
+		return self.contact + ' - ' + self.type_info + ' : ' + self.info
 
 	def __str__(self):
-		return self.name
+		return self.contact + ' - ' + self.type_info + ' : ' + self.info
 
 
-class CompanyContacts(models.Model):
-	company = models.ForeignKey(Company)
-	contact = models.ForeignKey(Contact)
-	job_position = models.CharField(max_length=200, blank=True)
+class ContactRelationship(models.Model):
+	relation = models.CharField(max_length=200, blank=True)
+	from_contact = models.ForeignKey('Contact', related_name='from_contacts')
+	to_contact = models.ForeignKey('Contact', related_name='to_contacts')
 
-	def __unicode__(self):
-		return self.company + ' - ' + self.contact
-
-	def __str__(self):
-		return self.company + ' - ' + self.contact
+	class Meta:
+		unique_together = ('from_contact', 'to_contact')

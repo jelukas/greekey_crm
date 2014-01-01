@@ -1,9 +1,7 @@
 from django.contrib import admin
-from .models import Contact, Company, CompanyContacts, PhoneNumbers, EmailAddresses
+from .models import Contact, ContactMoreInfo, ContactRelationship
 
 
 admin.site.register(Contact)
-admin.site.register(Company)
-admin.site.register(CompanyContacts)
-admin.site.register(PhoneNumbers)
-admin.site.register(EmailAddresses)
+admin.site.register(ContactMoreInfo)
+admin.site.register(ContactRelationship)

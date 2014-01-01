@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+	<div class="jumbotron">
+		<h1>Cronometro General</h1>
+		{% if not general_timer_active %}
+			<p class="lead">Click en Start para empezar a contabilizar el tiempo</p>
+			<p><a class="btn btn-lg btn-success" href="{% url 'start_general_timer' %}" role="button">START</a></p>
+		{% else %}
+			<p class="lead">Click en Stop para parar de contabilizar el tiempo</p>
+			<p><a class="btn btn-lg btn-danger" href="{% url 'stop_general_timer' %}" role="button">STOP</a></p>
+		{% endif %}
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12"><h2>Your {% now "F" %} Work: {{ time_of_month }} <h2></div>
+	</div>
+
+	<div class="panel panel-primary">
+	<!-- Default panel contents -->
+	<div class="panel-heading">Your Working Time Line</div>
+
+	<!-- Table -->
+	<table class="table">
+	    <thead>
+	    	<tr>
+	    		<td>Start</td>
+	    		<td>End</td>
+	    		<td>Duration</td>
+	    	</tr>
+	    </thead>
+	    {% for timer in timers %}
+	    	<tr>
+	    		<td>{{ timer.start_working}}</td>
+	    		<td>{% if timer.end_working %}{{ timer.end_working }}{% else %}<span class="label label-success">Is Active</span>{% endif %}</td>
+	    		<td>{% if timer.duration %}{{timer.duration|time:"H:i:s" }}{% else %}<span class="label label-success">Is Active</span>{% endif %}</td>
+	    	</tr>
+	    {% endfor %}
+	  </table>
+	</div>
+
+{% endblock content %}

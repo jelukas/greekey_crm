@@ -5,27 +5,25 @@
 {% url 'auth_password_reset' as auth_pwd_reset_url %}
 {% url 'registration_register' as register_url%}
 
-{% if form.errors %}
-<p>{% blocktrans %}Your username and password didn't match. Please try again.{% endblocktrans %}</p>
+  
+{% if form.errors %}  
+	<div class="alert alert-danger alert-dismissable" >
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		{% blocktrans %}Your username and password didn't match. Please try again.{% endblocktrans %}
+	</div>
 {% endif %}
 
-<form method="post" action="{% url 'auth_login' %}">{% csrf_token %}
-<table>
-<tr>
-    <td>{% trans form.username.label_tag %}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{% trans form.password.label_tag %}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
-<p>{% blocktrans %}<a href="{{ auth_pwd_reset_url }}">Forgot</a> your password?
-    <a href="{{ register_url }}">Need an account</a>?{% endblocktrans %}</p>
-
-<input class="btn btn-success" type="submit" value="{% trans "login" %}" />
-<input type="hidden" name="next" value="{{ next }}" />
+<form class="form-signin" role="form" method="post" action="{% url 'auth_login' %}">
+	{% csrf_token %}
+	<h2 class="form-signin-heading">Please sign in</h2>
+	<input type="text" class="form-control" placeholder="Username" required autofocus name="username">
+	<input type="password" class="form-control" placeholder="Password" name="password" required>
+	<p>
+		{% blocktrans %}<a href="{{ auth_pwd_reset_url }}">Forgot</a> your password?
+    	<a href="{{ register_url }}">Need an account</a>?{% endblocktrans %}
+    </p>
+	<button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "login" %}</button>
+	<input type="hidden" name="next" value="{{ next }}" />
 </form>
-
 
 {% endblock %}

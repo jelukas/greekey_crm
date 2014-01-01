@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, RequestContext, redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Project
 from .forms import ProjectForm
@@ -7,7 +7,7 @@ from .forms import ProjectForm
 @login_required
 def index(request):
 	context = {}
-	return render_to_response('base.html', context, context_instance=RequestContext(request))
+	return render(request, 'base.html', context)
 
 
 def add_project(request):
@@ -20,4 +20,6 @@ def add_project(request):
 	else:
 		project_form = ProjectForm()
 	context.update({'project_form': project_form})
-	return render_to_response('projects/add_project.html', context, context_instance=RequestContext(request))
+	return render(request,'projects/add_project.html', context)
+
+
